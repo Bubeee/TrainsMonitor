@@ -1,0 +1,29 @@
+{
+  "siteName": {
+    "value": "TrainsMonitor"
+  },
+  "hostingPlanName": {
+    "value": "TrainsMonitorServicePlan"
+  },
+  "siteLocation": {
+    "value": "West Europe"
+  },
+  "sku": {
+    "value": "Free"
+  },
+  "workerSize": {
+    "value": "0"
+  },
+  "siteMode": {
+    "value": "Limited"
+  },
+  "computeMode": {
+    "value": "0"
+  },
+  "subscriptionId": {
+    "value": "cf282561-32a2-4984-831b-a263d5654b2f"
+  },
+  "resourceGroup": {
+    "value": "WebSites"
+  }
+}
