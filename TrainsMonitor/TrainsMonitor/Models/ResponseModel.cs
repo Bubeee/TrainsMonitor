@@ -3,7 +3,7 @@
     public class ResponseModel
     {
         public string Message { get; set; }
-
-        public string CRC { get; set; }
+        public ushort ComputedCrc { get; set; }
+        public int NewEntityId { get; set; }
     }
 }

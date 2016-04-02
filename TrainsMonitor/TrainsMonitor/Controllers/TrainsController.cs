@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using TrainsMonitor.Helpers;
 using TrainsMonitor.Models;
-using TrainsMonitor.Repository.MSSQL;
 using TrainsMonitor.Repository.MSSQL.Entities;
 using TrainsMonitor.Repository.MSSQL.Repositories;
 
@@ -32,15 +32,36 @@ namespace TrainsMonitor.Controllers
         }
 
         // POST: api/Trains
-        public HttpResponseMessage Post([FromBody]RequestModel data)
+        public HttpResponseMessage Post()
         {
+            var content = Request.Content;
+            var contentStrings = content.ReadAsStringAsync().Result.Split('=');
+
+            var model = new TrainDataEntity();
+            var newId = -1;
+
+            try
+            {
+                model = ParameterParser.GetDataModelFromInputString(
+                    contentStrings[0].Substring(4),
+                    contentStrings[1], model);
+
+                newId = _repository.Save(model);
+            }
+            catch (Exception)
+            {
+                throw;
+                model.CrcData = 0;
+            }
+
             var response = Request.CreateResponse(HttpStatusCode.OK, new ResponseModel
             {
-                Message = "Successful received" + data.Data
+                Message = $"Is successful received: {newId != -1}; CRC: {model.CrcData}",
+                NewEntityId = newId,
+                ComputedCrc = model.CrcData
             });
 
             return response;
         }
     }
 }
-                                    

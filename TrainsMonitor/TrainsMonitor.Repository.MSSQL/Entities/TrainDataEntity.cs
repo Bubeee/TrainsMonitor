@@ -5,11 +5,13 @@ namespace TrainsMonitor.Repository.MSSQL.Entities
     public class TrainDataEntity
     {
         public int Id { get; set; }
-        public ushort PackageNumber { get; set; }
-        public ushort SystemSerialNumber { get; set; }
+
+        public int PackageNumber { get; set; }
+        public int SystemSerialNumber { get; set; }
 
         // byte[15]
         public string ProviderName { get; set; }
+        public bool IsSystemWorking { get; set; }
         public DateTime DateTime { get; set; }
 
         // 12 4-byte floats
@@ -27,9 +29,9 @@ namespace TrainsMonitor.Repository.MSSQL.Entities
         public float AirHeaterFuelConsumption { get; set; }
 
         // 2-byte
-        public ushort Heater1Flags { get; set; }
-        public ushort Heater2Flags { get; set; }
-        public ushort HeaterAirFlags { get; set; }
+        public int Heater1Flags { get; set; }
+        public int Heater2Flags { get; set; }
+        public int AirHeaterFlags { get; set; }
 
         public byte SystemFlags { get; set; }
 
