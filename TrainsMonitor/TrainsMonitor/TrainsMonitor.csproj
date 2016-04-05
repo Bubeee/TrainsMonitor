@@ -145,6 +145,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\ArrayExtensions.cs" />
+    <Compile Include="Helpers\Crc16Calculator.cs" />
     <Compile Include="Helpers\ParameterParser.cs" />
     <Compile Include="Helpers\StringExtensions.cs" />
     <Compile Include="Models\RequestModel.cs" />

@@ -37,28 +37,30 @@ namespace TrainsMonitor.Controllers
             var content = Request.Content;
             var contentStrings = content.ReadAsStringAsync().Result.Split('=');
 
-            var model = new TrainDataEntity();
+            TrainDataEntity model;
             var newId = -1;
+            ushort serverCrc = 0;
 
             try
             {
                 model = ParameterParser.GetDataModelFromInputString(
                     contentStrings[0].Substring(4),
-                    contentStrings[1], model);
+                    contentStrings[1], out serverCrc);
 
-                newId = _repository.Save(model);
+                if (serverCrc == model.CrcData)
+                {
+                    newId = _repository.Save(model);
+                }
             }
             catch (Exception)
             {
-                throw;
-                model.CrcData = 0;
+                serverCrc = 0;
             }
 
             var response = Request.CreateResponse(HttpStatusCode.OK, new ResponseModel
             {
-                Message = $"Is successful received: {newId != -1}; CRC: {model.CrcData}",
-                NewEntityId = newId,
-                ComputedCrc = model.CrcData
+                Message = $"Is successful received: {newId != -1}; server CRC: {serverCrc}; new Id is: {newId}",
+                ComputedCrc = serverCrc
             });
 
             return response;

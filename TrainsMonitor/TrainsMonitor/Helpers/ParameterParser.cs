@@ -9,18 +9,16 @@ namespace TrainsMonitor.Helpers
 {
     public static class ParameterParser
     {
-        public static TrainDataEntity GetDataModelFromInputString(string snNumber, string inputStr, TrainDataEntity dataModel)
+        public static TrainDataEntity GetDataModelFromInputString(string snNumber, string inputStr, out ushort serverComputedCrc)
         {
             inputStr = inputStr.StringCuttedBy("%");
 
             var paramPositions =
                 Array.ConvertAll(ConfigurationManager.AppSettings["parameterPositions"].Split(','), int.Parse);
 
+            var dataModel = new TrainDataEntity();
             // retrieve date, because it's in integer
-            var dateString = inputStr.Substring(paramPositions[4] * 2, 12);
-            var dateArray = dateString.SplitInParts(2).Select(s => int.Parse(s, NumberStyles.Integer)).ToArray();
-            dataModel.DateTime = new DateTime(2000 + dateArray[0], dateArray[1], dateArray[2], dateArray[3], dateArray[4], dateArray[5]);
-
+            dataModel.DateTime = GetDateTime(inputStr.Substring(paramPositions[4] * 2, 12));
             var byteArray = inputStr.SplitInParts(2).Select(s => byte.Parse(s, NumberStyles.HexNumber)).ToArray();
 
             var index = 1;
@@ -50,15 +48,18 @@ namespace TrainsMonitor.Helpers
             dataModel.AirHeaterFlags = BitConverter.ToUInt16(byteArray, paramPositions[index++]);
 
             dataModel.SystemFlags = byteArray[paramPositions[index++]];
-
             dataModel.CrcData = BitConverter.ToUInt16(byteArray, paramPositions[index]);
+
+            serverComputedCrc = Crc16Calculator.ComputeCrc16Bit(byteArray, byteArray.Length - 2);
 
             return dataModel;
         }
 
-        //public static ushort ComputeCrc()
-        //{
-        //    return
-        //}
+        private static DateTime GetDateTime(string dateString)
+        {
+            var dateArray = dateString.SplitInParts(2).Select(s => int.Parse(s, NumberStyles.Integer)).ToArray();
+
+            return new DateTime(2000 + dateArray[0], dateArray[1], dateArray[2], dateArray[3], dateArray[4], dateArray[5]);
+        }
     }
 }
