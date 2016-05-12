@@ -10,6 +10,5 @@
         public float OilTemperature { get; set; }
         public float TransformatorTemperature { get; set; }
         public float CabinTemperature { get; set; }
-        public int RecordId { get; set; }
     }
 }

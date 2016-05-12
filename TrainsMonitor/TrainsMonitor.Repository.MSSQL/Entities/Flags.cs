@@ -8,6 +8,5 @@
         public int AirHeaterFlags { get; set; }
 
         public byte SystemFlags { get; set; }
-        public int RecordId { get; set; }
     }
 }

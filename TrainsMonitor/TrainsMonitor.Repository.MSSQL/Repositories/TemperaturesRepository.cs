@@ -47,5 +47,14 @@ namespace TrainsMonitor.Repository.MSSQL.Repositories
         {
             throw new NotImplementedException();
         }
+
+        public Temperatures GetByRecordId(int id)
+        {
+            using (var dbConnection = DbConnectionFactory.CreateConnection())
+            {
+                var query = "SELECT * FROM [Temperatures] WHERE [RecordId] = @id";
+                return dbConnection.Query<Temperatures>(query, id).FirstOrDefault();
+            }
+        }
     }
 }

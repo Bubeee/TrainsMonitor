@@ -46,5 +46,14 @@ namespace TrainsMonitor.Repository.MSSQL.Repositories
         {
             throw new NotImplementedException();
         }
+
+        public FuelConsumptions GetByRecordId(int id)
+        {
+            using (var dbConnection = DbConnectionFactory.CreateConnection())
+            {
+                var query = "SELECT * FROM [FuelConsumptions] WHERE [RecordId] = @id";
+                return dbConnection.Query<FuelConsumptions>(query, id).FirstOrDefault();
+            }
+        }
     }
 }

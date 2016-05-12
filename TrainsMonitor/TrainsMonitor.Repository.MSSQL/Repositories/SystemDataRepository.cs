@@ -49,5 +49,14 @@ namespace TrainsMonitor.Repository.MSSQL.Repositories
         {
             throw new NotImplementedException();
         }
+
+        public SystemData GetByRecordId(int id)
+        {
+            using (var dbConnection = DbConnectionFactory.CreateConnection())
+            {
+                var query = "SELECT * FROM [SystemData] WHERE [RecordId] = @id";
+                return dbConnection.Query<SystemData>(query, id).FirstOrDefault();
+            }
+        }
     }
 }

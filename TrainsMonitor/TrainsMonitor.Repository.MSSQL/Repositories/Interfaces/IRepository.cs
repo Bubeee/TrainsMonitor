@@ -11,5 +11,6 @@ namespace TrainsMonitor.Repository.MSSQL.Repositories.Interfaces
         int Save(T entity);
         bool Delete(int id);
         bool Delete(T entity);
+        T GetByRecordId(int id);
     }
 }

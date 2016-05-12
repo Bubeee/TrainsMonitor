@@ -21,9 +21,9 @@ namespace TrainsMonitor.Controllers
         }
 
         // GET api/<controller>/5
-        public string Get(int id)
+        public Temperatures Get(int id)
         {
-            return "value";
+            return _repository.GetByRecordId(id);
         }
 
         // POST api/<controller>
