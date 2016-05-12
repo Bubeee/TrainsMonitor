@@ -62,11 +62,6 @@
     <Compile Include="Factories\SqlConnectionFactory.cs" />
     <Compile Include="Repositories\CoordinatesRepository.cs" />
     <Compile Include="Repositories\FuelConsumptionsRepository.cs" />
-    <Compile Include="Repositories\Interfaces\ITemperaturesRepository.cs" />
-    <Compile Include="Repositories\Interfaces\ISystemDataRepository.cs" />
-    <Compile Include="Repositories\Interfaces\IFuelConsumptionsRepository.cs" />
-    <Compile Include="Repositories\Interfaces\IFlagsRepository.cs" />
-    <Compile Include="Repositories\Interfaces\ICoordinateRepository.cs" />
     <Compile Include="Repositories\Interfaces\IRepository.cs" />
     <Compile Include="Repositories\FlagsRepository.cs" />
     <Compile Include="Repositories\TemperaturesRepository.cs" />
