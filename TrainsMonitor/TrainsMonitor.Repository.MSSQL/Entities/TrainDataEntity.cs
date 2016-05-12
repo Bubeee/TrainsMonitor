@@ -2,17 +2,15 @@
 
 namespace TrainsMonitor.Repository.MSSQL.Entities
 {
-    public class TrainDataEntity
+    public class TrainDataEntity : Entity
     {
-        public int Id { get; set; }
-
         public int PackageNumber { get; set; }
         public int SystemSerialNumber { get; set; }
 
         // byte[15]
         public string ProviderName { get; set; }
         public bool IsSystemWorking { get; set; }
-        public DateTime DateTime { get; set; }
+        public DateTime MeasurementDateTime { get; set; }
 
         // 12 4-byte floats
         public float EnvironmentTemperature { get; set; }
@@ -23,7 +21,7 @@ namespace TrainsMonitor.Repository.MSSQL.Entities
         public float OilTemperature { get; set; }
         public float TransformatorTemperature { get; set; }
         public float CabinTemperature { get; set; }
-        public float Voltage { get; set; }
+        public float VoltageAkb { get; set; }
         public float Heater1FuelConsumption { get; set; }
         public float Heater2FuelConsumption { get; set; }
         public float AirHeaterFuelConsumption { get; set; }

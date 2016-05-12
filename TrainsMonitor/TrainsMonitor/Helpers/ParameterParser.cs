@@ -18,7 +18,7 @@ namespace TrainsMonitor.Helpers
 
             var dataModel = new TrainDataEntity();
             // retrieve date, because it's in integer
-            dataModel.DateTime = GetDateTime(inputStr.Substring(paramPositions[4] * 2, 12));
+            dataModel.MeasurementDateTime = GetDateTime(inputStr.Substring(paramPositions[4] * 2, 12));
             var byteArray = inputStr.SplitInParts(2).Select(s => byte.Parse(s, NumberStyles.HexNumber)).ToArray();
 
             var index = 1;
@@ -38,7 +38,7 @@ namespace TrainsMonitor.Helpers
             dataModel.OilTemperature = BitConverter.ToSingle(byteArray, paramPositions[index++]);
             dataModel.TransformatorTemperature = BitConverter.ToSingle(byteArray, paramPositions[index++]);
             dataModel.CabinTemperature = BitConverter.ToSingle(byteArray, paramPositions[index++]);
-            dataModel.Voltage = BitConverter.ToSingle(byteArray, paramPositions[index++]);
+            dataModel.VoltageAkb = BitConverter.ToSingle(byteArray, paramPositions[index++]);
             dataModel.Heater1FuelConsumption = BitConverter.ToSingle(byteArray, paramPositions[index++]);
             dataModel.Heater2FuelConsumption = BitConverter.ToSingle(byteArray, paramPositions[index++]);
             dataModel.AirHeaterFuelConsumption = BitConverter.ToSingle(byteArray, paramPositions[index++]);

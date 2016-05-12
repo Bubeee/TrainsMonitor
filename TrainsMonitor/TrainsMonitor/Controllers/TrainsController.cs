@@ -6,7 +6,7 @@ using System.Web.Http;
 using TrainsMonitor.Helpers;
 using TrainsMonitor.Models;
 using TrainsMonitor.Repository.MSSQL.Entities;
-using TrainsMonitor.Repository.MSSQL.Repositories;
+using TrainsMonitor.Repository.MSSQL.Repositories.Interfaces;
 
 namespace TrainsMonitor.Controllers
 {
@@ -37,7 +37,7 @@ namespace TrainsMonitor.Controllers
             var content = Request.Content;
             var contentStrings = content.ReadAsStringAsync().Result.Split('=');
 
-            TrainDataEntity model;
+            TrainDataEntity model = new TrainDataEntity();
             var newId = -1;
             ushort serverCrc = 0;
 
@@ -59,8 +59,7 @@ namespace TrainsMonitor.Controllers
 
             var response = Request.CreateResponse(HttpStatusCode.OK, new ResponseModel
             {
-                Message = $"Is successful received: {newId != -1}; server CRC: {serverCrc}; new Id is: {newId}",
-                ComputedCrc = serverCrc
+                Message = $"Is successful received: {newId != -1}; computed CRC: {serverCrc}; actual CRC: {model.CrcData}; new Id is: {newId}"
             });
 
             return response;

@@ -34,8 +34,15 @@
       <HintPath>..\packages\Dapper.1.42\lib\net45\Dapper.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Ninject">
+      <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Spatial, Version=5.7.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Spatial.5.7.0\lib\net40\System.Spatial.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -44,10 +51,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\Coordinates.cs" />
+    <Compile Include="Entities\Entity.cs" />
+    <Compile Include="Entities\Flags.cs" />
+    <Compile Include="Entities\FuelConsumptions.cs" />
+    <Compile Include="Entities\SystemData.cs" />
+    <Compile Include="Entities\Temperatures.cs" />
     <Compile Include="Entities\TrainDataEntity.cs" />
     <Compile Include="Factories\IDbConnectionFactory.cs" />
     <Compile Include="Factories\SqlConnectionFactory.cs" />
-    <Compile Include="Repositories\IRepository.cs" />
+    <Compile Include="Repositories\CoordinatesRepository.cs" />
+    <Compile Include="Repositories\FuelConsumptionsRepository.cs" />
+    <Compile Include="Repositories\Interfaces\ITemperaturesRepository.cs" />
+    <Compile Include="Repositories\Interfaces\ISystemDataRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IFuelConsumptionsRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IFlagsRepository.cs" />
+    <Compile Include="Repositories\Interfaces\ICoordinateRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IRepository.cs" />
+    <Compile Include="Repositories\FlagsRepository.cs" />
+    <Compile Include="Repositories\TemperaturesRepository.cs" />
+    <Compile Include="Repositories\SystemDataRepository.cs" />
     <Compile Include="Repositories\MssqlTrainsRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
