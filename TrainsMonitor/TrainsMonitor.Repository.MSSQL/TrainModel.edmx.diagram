@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="a592a191b9e24a4682f49872392881b5" Name="Diagram1" ZoomLevel="82">
+        <EntityTypeShape EntityType="trainsmonitorDbModel.Coordinate" Width="1.5" PointX="3" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="trainsmonitorDbModel.Flag" Width="1.5" PointX="5.375" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="trainsmonitorDbModel.FuelConsumption" Width="1.5" PointX="3.375" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="trainsmonitorDbModel.SystemData" Width="1.5" PointX="0.625" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="trainsmonitorDbModel.Temperature" Width="1.5" PointX="0.625" PointY="4.75" IsExpanded="true" />
+        <AssociationConnector Association="trainsmonitorDbModel.FK__Coordinat__Recor__7E37BEF6" ManuallyRouted="false" />
+        <AssociationConnector Association="trainsmonitorDbModel.FK__Flags__RecordId__7F2BE32F" ManuallyRouted="false" />
+        <AssociationConnector Association="trainsmonitorDbModel.FK__FuelConsu__Recor__00200768" ManuallyRouted="false" />
+        <AssociationConnector Association="trainsmonitorDbModel.FK__Temperatu__Recor__01142BA1" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

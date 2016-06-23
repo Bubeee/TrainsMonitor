@@ -15,6 +15,7 @@ namespace TrainsMonitor.Repository.MSSQL.Factories
         public IDbConnection CreateConnection()
         {
             var conn = new SqlConnection(_connectionString);
+            
             conn.Open();
             return conn;
         }

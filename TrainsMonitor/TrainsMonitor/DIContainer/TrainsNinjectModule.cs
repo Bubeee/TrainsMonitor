@@ -16,12 +16,7 @@ namespace TrainsMonitor.DIContainer
                 .WithConstructorArgument("connectionString",
                     ConfigurationManager.ConnectionStrings["azureSqlConnectionString"].ConnectionString);
 
-            Bind<IRepository<TrainDataEntity>>().To<MssqlTrainsRepository>();
-            Bind<IRepository<SystemData>>().To<SystemDataRepository>();
-            Bind<IRepository<Temperatures>>().To<TemperaturesRepository>();
-            Bind<IRepository<FuelConsumptions>>().To<FuelConsumptionsRepository>();
-            Bind<IRepository<Flags>>().To<FlagsRepository>();
-            Bind<IRepository<Coordinates>>().To<CoordinatesRepository>();
+            Bind<IRepository<TrainDataEntity>>().To<TrainsDataRepository>();
         }
     }
 }

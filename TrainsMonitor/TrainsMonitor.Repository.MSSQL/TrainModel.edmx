@@ -1,0 +1,384 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="trainsmonitorDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Coordinates">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Latitude" Type="float" />
+          <Property Name="Longtitude" Type="float" />
+          <Property Name="RecordId" Type="int" />
+        </EntityType>
+        <EntityType Name="Flags">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Heater1Flags" Type="int" />
+          <Property Name="Heater2Flags" Type="int" />
+          <Property Name="AirHeaterFlags" Type="int" />
+          <Property Name="SystemFlags" Type="tinyint" />
+          <Property Name="RecordId" Type="int" />
+        </EntityType>
+        <EntityType Name="FuelConsumptions">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Heater1FuelConsumption" Type="real" />
+          <Property Name="Heater2FuelConsumption" Type="real" />
+          <Property Name="AirHeaterFuelConsumption" Type="real" />
+          <Property Name="RecordId" Type="int" />
+        </EntityType>
+        <EntityType Name="SystemData">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PackageNumber" Type="int" />
+          <Property Name="SystemSerialNumber" Type="int" />
+          <Property Name="ProviderName" Type="nvarchar" MaxLength="15" />
+          <Property Name="IsSystemWorking" Type="bit" />
+          <Property Name="MeasurementDateTime" Type="datetime" />
+          <Property Name="VoltageAKB" Type="real" />
+        </EntityType>
+        <EntityType Name="Temperatures">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EnvironmentTemperature" Type="real" />
+          <Property Name="Radiator1Temperature" Type="real" />
+          <Property Name="Radiator2Temperature" Type="real" />
+          <Property Name="FootstepTemperature" Type="real" />
+          <Property Name="TurbineTemperature" Type="real" />
+          <Property Name="OilTemperature" Type="real" />
+          <Property Name="TransformatorTemperature" Type="real" />
+          <Property Name="CabinTemperature" Type="real" />
+          <Property Name="RecordId" Type="int" />
+        </EntityType>
+        <Association Name="FK__Coordinat__Recor__7E37BEF6">
+          <End Role="SystemData" Type="Self.SystemData" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Coordinates" Type="Self.Coordinates" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SystemData">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Coordinates">
+              <PropertyRef Name="RecordId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Flags__RecordId__7F2BE32F">
+          <End Role="SystemData" Type="Self.SystemData" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Flags" Type="Self.Flags" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SystemData">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Flags">
+              <PropertyRef Name="RecordId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__FuelConsu__Recor__00200768">
+          <End Role="SystemData" Type="Self.SystemData" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="FuelConsumptions" Type="Self.FuelConsumptions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SystemData">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="FuelConsumptions">
+              <PropertyRef Name="RecordId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Temperatu__Recor__01142BA1">
+          <End Role="SystemData" Type="Self.SystemData" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Temperatures" Type="Self.Temperatures" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SystemData">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Temperatures">
+              <PropertyRef Name="RecordId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="trainsmonitorDbModelStoreContainer">
+          <EntitySet Name="Coordinates" EntityType="Self.Coordinates" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Flags" EntityType="Self.Flags" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FuelConsumptions" EntityType="Self.FuelConsumptions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SystemData" EntityType="Self.SystemData" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Temperatures" EntityType="Self.Temperatures" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Coordinat__Recor__7E37BEF6" Association="Self.FK__Coordinat__Recor__7E37BEF6">
+            <End Role="SystemData" EntitySet="SystemData" />
+            <End Role="Coordinates" EntitySet="Coordinates" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Flags__RecordId__7F2BE32F" Association="Self.FK__Flags__RecordId__7F2BE32F">
+            <End Role="SystemData" EntitySet="SystemData" />
+            <End Role="Flags" EntitySet="Flags" />
+          </AssociationSet>
+          <AssociationSet Name="FK__FuelConsu__Recor__00200768" Association="Self.FK__FuelConsu__Recor__00200768">
+            <End Role="SystemData" EntitySet="SystemData" />
+            <End Role="FuelConsumptions" EntitySet="FuelConsumptions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Temperatu__Recor__01142BA1" Association="Self.FK__Temperatu__Recor__01142BA1">
+            <End Role="SystemData" EntitySet="SystemData" />
+            <End Role="Temperatures" EntitySet="Temperatures" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="trainsmonitorDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Coordinate">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Latitude" Type="Double" />
+          <Property Name="Longtitude" Type="Double" />
+          <Property Name="RecordId" Type="Int32" />
+          <NavigationProperty Name="SystemData" Relationship="Self.FK__Coordinat__Recor__7E37BEF6" FromRole="Coordinates" ToRole="SystemData" />
+        </EntityType>
+        <EntityType Name="Flag">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Heater1Flags" Type="Int32" />
+          <Property Name="Heater2Flags" Type="Int32" />
+          <Property Name="AirHeaterFlags" Type="Int32" />
+          <Property Name="SystemFlags" Type="Byte" />
+          <Property Name="RecordId" Type="Int32" />
+          <NavigationProperty Name="SystemData" Relationship="Self.FK__Flags__RecordId__7F2BE32F" FromRole="Flags" ToRole="SystemData" />
+        </EntityType>
+        <EntityType Name="FuelConsumption">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Heater1FuelConsumption" Type="Single" />
+          <Property Name="Heater2FuelConsumption" Type="Single" />
+          <Property Name="AirHeaterFuelConsumption" Type="Single" />
+          <Property Name="RecordId" Type="Int32" />
+          <NavigationProperty Name="SystemData" Relationship="Self.FK__FuelConsu__Recor__00200768" FromRole="FuelConsumptions" ToRole="SystemData" />
+        </EntityType>
+        <EntityType Name="SystemData">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PackageNumber" Type="Int32" />
+          <Property Name="SystemSerialNumber" Type="Int32" />
+          <Property Name="ProviderName" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="IsSystemWorking" Type="Boolean" />
+          <Property Name="MeasurementDateTime" Type="DateTime" Precision="3" />
+          <Property Name="VoltageAKB" Type="Single" />
+          <NavigationProperty Name="Coordinates" Relationship="Self.FK__Coordinat__Recor__7E37BEF6" FromRole="SystemData" ToRole="Coordinates" />
+          <NavigationProperty Name="Flags" Relationship="Self.FK__Flags__RecordId__7F2BE32F" FromRole="SystemData" ToRole="Flags" />
+          <NavigationProperty Name="FuelConsumptions" Relationship="Self.FK__FuelConsu__Recor__00200768" FromRole="SystemData" ToRole="FuelConsumptions" />
+          <NavigationProperty Name="Temperatures" Relationship="Self.FK__Temperatu__Recor__01142BA1" FromRole="SystemData" ToRole="Temperatures" />
+        </EntityType>
+        <EntityType Name="Temperature">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EnvironmentTemperature" Type="Single" />
+          <Property Name="Radiator1Temperature" Type="Single" />
+          <Property Name="Radiator2Temperature" Type="Single" />
+          <Property Name="FootstepTemperature" Type="Single" />
+          <Property Name="TurbineTemperature" Type="Single" />
+          <Property Name="OilTemperature" Type="Single" />
+          <Property Name="TransformatorTemperature" Type="Single" />
+          <Property Name="CabinTemperature" Type="Single" />
+          <Property Name="RecordId" Type="Int32" />
+          <NavigationProperty Name="SystemData" Relationship="Self.FK__Temperatu__Recor__01142BA1" FromRole="Temperatures" ToRole="SystemData" />
+        </EntityType>
+        <Association Name="FK__Coordinat__Recor__7E37BEF6">
+          <End Role="SystemData" Type="Self.SystemData" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Coordinates" Type="Self.Coordinate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SystemData">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Coordinates">
+              <PropertyRef Name="RecordId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Flags__RecordId__7F2BE32F">
+          <End Role="SystemData" Type="Self.SystemData" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Flags" Type="Self.Flag" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SystemData">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Flags">
+              <PropertyRef Name="RecordId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__FuelConsu__Recor__00200768">
+          <End Role="SystemData" Type="Self.SystemData" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="FuelConsumptions" Type="Self.FuelConsumption" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SystemData">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="FuelConsumptions">
+              <PropertyRef Name="RecordId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Temperatu__Recor__01142BA1">
+          <End Role="SystemData" Type="Self.SystemData" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Temperatures" Type="Self.Temperature" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SystemData">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Temperatures">
+              <PropertyRef Name="RecordId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="trainsmonitorDbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Coordinates" EntityType="Self.Coordinate" />
+          <EntitySet Name="Flags" EntityType="Self.Flag" />
+          <EntitySet Name="FuelConsumptions" EntityType="Self.FuelConsumption" />
+          <EntitySet Name="SystemDatas" EntityType="Self.SystemData" />
+          <EntitySet Name="Temperatures" EntityType="Self.Temperature" />
+          <AssociationSet Name="FK__Coordinat__Recor__7E37BEF6" Association="Self.FK__Coordinat__Recor__7E37BEF6">
+            <End Role="SystemData" EntitySet="SystemDatas" />
+            <End Role="Coordinates" EntitySet="Coordinates" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Flags__RecordId__7F2BE32F" Association="Self.FK__Flags__RecordId__7F2BE32F">
+            <End Role="SystemData" EntitySet="SystemDatas" />
+            <End Role="Flags" EntitySet="Flags" />
+          </AssociationSet>
+          <AssociationSet Name="FK__FuelConsu__Recor__00200768" Association="Self.FK__FuelConsu__Recor__00200768">
+            <End Role="SystemData" EntitySet="SystemDatas" />
+            <End Role="FuelConsumptions" EntitySet="FuelConsumptions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Temperatu__Recor__01142BA1" Association="Self.FK__Temperatu__Recor__01142BA1">
+            <End Role="SystemData" EntitySet="SystemDatas" />
+            <End Role="Temperatures" EntitySet="Temperatures" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="trainsmonitorDbModelStoreContainer" CdmEntityContainer="trainsmonitorDbEntities">
+          <EntitySetMapping Name="Coordinates">
+            <EntityTypeMapping TypeName="trainsmonitorDbModel.Coordinate">
+              <MappingFragment StoreEntitySet="Coordinates">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="Longtitude" ColumnName="Longtitude" />
+                <ScalarProperty Name="RecordId" ColumnName="RecordId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Flags">
+            <EntityTypeMapping TypeName="trainsmonitorDbModel.Flag">
+              <MappingFragment StoreEntitySet="Flags">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Heater1Flags" ColumnName="Heater1Flags" />
+                <ScalarProperty Name="Heater2Flags" ColumnName="Heater2Flags" />
+                <ScalarProperty Name="AirHeaterFlags" ColumnName="AirHeaterFlags" />
+                <ScalarProperty Name="SystemFlags" ColumnName="SystemFlags" />
+                <ScalarProperty Name="RecordId" ColumnName="RecordId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FuelConsumptions">
+            <EntityTypeMapping TypeName="trainsmonitorDbModel.FuelConsumption">
+              <MappingFragment StoreEntitySet="FuelConsumptions">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Heater1FuelConsumption" ColumnName="Heater1FuelConsumption" />
+                <ScalarProperty Name="Heater2FuelConsumption" ColumnName="Heater2FuelConsumption" />
+                <ScalarProperty Name="AirHeaterFuelConsumption" ColumnName="AirHeaterFuelConsumption" />
+                <ScalarProperty Name="RecordId" ColumnName="RecordId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SystemDatas">
+            <EntityTypeMapping TypeName="trainsmonitorDbModel.SystemData">
+              <MappingFragment StoreEntitySet="SystemData">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="PackageNumber" ColumnName="PackageNumber" />
+                <ScalarProperty Name="SystemSerialNumber" ColumnName="SystemSerialNumber" />
+                <ScalarProperty Name="ProviderName" ColumnName="ProviderName" />
+                <ScalarProperty Name="IsSystemWorking" ColumnName="IsSystemWorking" />
+                <ScalarProperty Name="MeasurementDateTime" ColumnName="MeasurementDateTime" />
+                <ScalarProperty Name="VoltageAKB" ColumnName="VoltageAKB" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Temperatures">
+            <EntityTypeMapping TypeName="trainsmonitorDbModel.Temperature">
+              <MappingFragment StoreEntitySet="Temperatures">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="EnvironmentTemperature" ColumnName="EnvironmentTemperature" />
+                <ScalarProperty Name="Radiator1Temperature" ColumnName="Radiator1Temperature" />
+                <ScalarProperty Name="Radiator2Temperature" ColumnName="Radiator2Temperature" />
+                <ScalarProperty Name="FootstepTemperature" ColumnName="FootstepTemperature" />
+                <ScalarProperty Name="TurbineTemperature" ColumnName="TurbineTemperature" />
+                <ScalarProperty Name="OilTemperature" ColumnName="OilTemperature" />
+                <ScalarProperty Name="TransformatorTemperature" ColumnName="TransformatorTemperature" />
+                <ScalarProperty Name="CabinTemperature" ColumnName="CabinTemperature" />
+                <ScalarProperty Name="RecordId" ColumnName="RecordId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

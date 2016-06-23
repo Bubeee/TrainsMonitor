@@ -53,20 +53,11 @@
   <ItemGroup>
     <Compile Include="Entities\Coordinates.cs" />
     <Compile Include="Entities\Entity.cs" />
-    <Compile Include="Entities\Flags.cs" />
-    <Compile Include="Entities\FuelConsumptions.cs" />
-    <Compile Include="Entities\SystemData.cs" />
-    <Compile Include="Entities\Temperatures.cs" />
     <Compile Include="Entities\TrainDataEntity.cs" />
     <Compile Include="Factories\IDbConnectionFactory.cs" />
     <Compile Include="Factories\SqlConnectionFactory.cs" />
-    <Compile Include="Repositories\CoordinatesRepository.cs" />
-    <Compile Include="Repositories\FuelConsumptionsRepository.cs" />
     <Compile Include="Repositories\Interfaces\IRepository.cs" />
-    <Compile Include="Repositories\FlagsRepository.cs" />
-    <Compile Include="Repositories\TemperaturesRepository.cs" />
-    <Compile Include="Repositories\SystemDataRepository.cs" />
-    <Compile Include="Repositories\MssqlTrainsRepository.cs" />
+    <Compile Include="Repositories\TrainsDataRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("TrainsMonitor.BLL")]
+[assembly: AssemblyTitle("TrainsMonitor.DataAccess.OneTable")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("TrainsMonitor.BLL")]
+[assembly: AssemblyProduct("TrainsMonitor.DataAccess.OneTable")]
 [assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("f725f8f0-3dc3-449b-9fe6-3f1871534029")]
+[assembly: Guid("eae62c28-2c93-42c3-8617-ace779b58e9d")]
 
 // Version information for an assembly consists of the following four values:
 //

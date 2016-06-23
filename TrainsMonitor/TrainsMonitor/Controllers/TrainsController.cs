@@ -34,29 +34,35 @@ namespace TrainsMonitor.Controllers
         // POST: api/Trains
         public HttpResponseMessage Post()
         {
+            // Достать из зарпоса контент
             var content = Request.Content;
+            // Разделить контент на 2 части
             var contentStrings = content.ReadAsStringAsync().Result.Split('=');
 
+            // Создать модель данных
             TrainDataEntity model = new TrainDataEntity();
             var newId = -1;
-            ushort serverCrc = 0;
+            ushort serverCrc;
 
+            // Попробовать разобрать контент и преобразовать в объект
             try
             {
                 model = ParameterParser.GetDataModelFromInputString(
                     contentStrings[0].Substring(4),
                     contentStrings[1], out serverCrc);
 
+                // Если CRC совпадает - сохранить данные в базу
                 if (serverCrc == model.CrcData)
                 {
                     newId = _repository.Save(model);
                 }
             }
-            catch (Exception)
+            catch (Exception exception)
             {
                 serverCrc = 0;
             }
 
+            // Отправить ответ источнику запроса
             var response = Request.CreateResponse(HttpStatusCode.OK, new ResponseModel
             {
                 Message = $"Is successful received: {newId != -1}; computed CRC: {serverCrc}; actual CRC: {model.CrcData}; new Id is: {newId}"
