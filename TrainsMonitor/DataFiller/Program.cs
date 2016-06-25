@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Configuration;
+using System.Collections.Generic;
 using System.Diagnostics;
-using Ninject;
-using Ninject.Modules;
-using TrainsMonitor.Repository.MSSQL.Entities;
-using TrainsMonitor.Repository.MSSQL.Factories;
-using TrainsMonitor.Repository.MSSQL.Repositories;
-using TrainsMonitor.Repository.MSSQL.Repositories.Interfaces;
+using System.Net;
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace DataFiller
 {
@@ -14,67 +12,36 @@ namespace DataFiller
     {
         static void Main(string[] args)
         {
-            var kernel = new StandardKernel(new MyNinjectModule());
-            var repo = kernel.Get<TrainsDataRepository>();
-            var rand = new Random(DateTime.Now.DayOfYear * 121 - 111);
+            MainAsync().Wait();
+        }
 
-            Stopwatch sw = new Stopwatch();
-            sw.Start();
-            for (int i = 0; i < 100000; i++)
+        static async Task MainAsync()
+        {
+            var sw = new Stopwatch();
+
+            var values = new Dictionary<string, string>
+                    {
+                        {
+                            "DATA137",
+                            "000019134D74732E6279000000000000000000011508252144550000CC4100002042CDCC2842CDCC1A4200000E42CDCCA842CDCC1E426666DE419A99C141008009440000E14300802244009C05BC0000FC3F35"
+                        }
+                    };
+            using (var client = new HttpClient())
             {
-                var entity = GetEntity(i, rand);
-                repo.Save(entity);
-                Console.WriteLine("Elapsed = {0}, Record No = {1}", sw.Elapsed, i);
+                for (var i = 0; i < 1000; i++)
+                {
+                    sw.Start();
+                    
+                    var content = new FormUrlEncodedContent(values);
+                    var response = await client.PostAsync("http://trainsmonitor.net/Trains", content);
+
+                    sw.Stop();
+                    var responseString = await response.Content.ReadAsStringAsync();
+                    Console.WriteLine("Elapsed = {0}, Record No = {1}, response {2}", sw.Elapsed, i, responseString);
+                }
             }
 
-            sw.Stop();
-            Console.WriteLine(sw.Elapsed);
             Console.ReadKey();
-        }
-
-        private static TrainDataEntity GetEntity(int packNumber, Random rand)
-        {
-            return new TrainDataEntity
-            {
-                MeasurementDateTime = DateTime.Now,
-
-                PackageNumber = packNumber,
-                SystemSerialNumber = rand.Next(1, 30),
-                ProviderName = "Velcom.by",
-                IsSystemWorking = true,
-                EnvironmentTemperature = rand.Next(-20, 40),
-                Radiator1Temperature = rand.Next(10, 1510) / 10,
-                Radiator2Temperature = rand.Next(10, 1510) / 10,
-                FootstepTemperature = rand.Next(10, 1510) / 10,
-                TurbineTemperature = rand.Next(10, 1510) / 10,
-                OilTemperature = rand.Next(10, 1510) / 10,
-                TransformatorTemperature = rand.Next(10, 1510) / 10,
-                CabinTemperature = rand.Next(10, 300) / 10,
-                VoltageAkb = rand.Next(220, 2200) / 10,
-                Heater1FuelConsumption = rand.Next(10, 150) / 10,
-                Heater2FuelConsumption = rand.Next(10, 150) / 10,
-                AirHeaterFuelConsumption = rand.Next(10, 150) / 10,
-
-                Heater1Flags = rand.Next(10, 150) / 10,
-                Heater2Flags = rand.Next(10, 150) / 10,
-                AirHeaterFlags = rand.Next(10, 150) / 10,
-
-                SystemFlags = (byte)rand.Next(1, 256)
-            };
-        }
-    }
-
-    public class MyNinjectModule : NinjectModule
-    {
-        public override void Load()
-        {
-
-            Bind<IDbConnectionFactory>()
-                .To<SqlConnectionFactory>()
-                .WithConstructorArgument("connectionString",
-                    ConfigurationManager.ConnectionStrings["azureSqlConnectionString"].ConnectionString);
-
-            Bind<IRepository<TrainDataEntity>>().To<TrainsDataRepository>();
         }
     }
 }

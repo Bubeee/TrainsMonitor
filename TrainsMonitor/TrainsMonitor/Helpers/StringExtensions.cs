@@ -19,7 +19,7 @@ namespace TrainsMonitor.Helpers
         public static string StringCuttedBy(this string s, string separator)
         {
             var l = s.IndexOf(separator, StringComparison.Ordinal);
-            return l > 0 ? s.Substring(0, l) : "";
+            return l > 0 ? s.Substring(0, l) : s;
         }
     }
 }
